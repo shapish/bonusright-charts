@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Chart Sample</title>
+		<script src="js/chart.min.js"></script>
+		<style>
+			html,
+			body {
+				min-height: 100%;
+			}
+			body {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+			}
+			.canvas-wrap {
+				padding: 30px;
+				background: #fff;
+				border-radius: 5px;
+				margin: 20px;
+			}
+		</style>
+	</head>
+	<body style="background: #eee">
+		<div class="canvas-wrap">
+			<canvas
+				id="chart1A"
+				width="520"
+				height="300"
+				style="background: #fff"
+			></canvas>
+		</div>
+		<div class="canvas-wrap">
+			<canvas
+				id="chart1B"
+				width="520"
+				height="300"
+				style="background: #fff"
+			></canvas>
+		</div>
+		<div class="canvas-wrap">
+			<canvas
+				id="chart1C"
+				width="520"
+				height="300"
+				style="background: #fff"
+			></canvas>
+		</div>
+		<div class="canvas-wrap">
+			<canvas
+				id="chart1D"
+				width="520"
+				height="300"
+				style="background: #fff"
+			></canvas>
+		</div>
+		<div class="canvas-wrap">
+			<canvas
+				id="chart2"
+				width="330"
+				height="200"
+				style="background: #fff"
+			></canvas>
+		</div>
+		<div class="canvas-wrap">
+			<canvas
+				id="chart3A"
+				width="520"
+				height="300"
+				style="background: #fff"
+			></canvas>
+		</div>
+		<div class="canvas-wrap">
+			<canvas
+				id="chart3B"
+				width="520"
+				height="300"
+				style="background: #fff"
+			></canvas>
+		</div>
+		<div class="canvas-wrap">
+			<canvas
+				id="chart4A"
+				width="670"
+				height="300"
+				style="background: #fff"
+			></canvas>
+		</div>
+		<div class="canvas-wrap">
+			<canvas
+				id="chart4B"
+				width="670"
+				height="300"
+				style="background: #fff"
+			></canvas>
+		</div>
+	</body>
+	<script>
+		const ctx1A = document.getElementById('chart1A').getContext('2d')
+		const ctx1B = document.getElementById('chart1B').getContext('2d')
+		const ctx1C = document.getElementById('chart1C').getContext('2d')
+		const ctx1D = document.getElementById('chart1D').getContext('2d')
+		const ctx2 = document.getElementById('chart2').getContext('2d')
+		const ctx3A = document.getElementById('chart3A').getContext('2d')
+		const ctx3B = document.getElementById('chart3B').getContext('2d')
+		const ctx4A = document.getElementById('chart4A').getContext('2d')
+		const ctx4B = document.getElementById('chart4B').getContext('2d')
+		const colors = {
+			base: '#5B8184',
+			target: '#55BC72',
+			superior: '#98DF24',
+			current: '#DD005D',
+			company: '#5292B6',
+			division: '#77CBD7',
+			location: '#6EE3EB',
+		}
+		const options = {
+			responsive: false,
+
+			// Line & dot styling
+			// pointBackgroundColor: 'transparent',
+			pointBorderColor: 'transparent',
+			pointRadius: 0,
+			borderWidth: 1,
+			tension: 0.2,
+
+			// tooltips: {
+			// 	mode: 'index',
+			// 	intersect: false,
+			// },
+			plugins: {
+				legend: {
+					position: 'bottom',
+					labels: {
+						padding: 20,
+						usePointStyle: true,
+						boxWidth: 8,
+						filter: (a) => {
+							a.text = ' ' + a.text
+							return a
+						},
+					},
+				},
+				tooltip: {
+					intersect: false,
+				},
+			},
+			animation: false,
+			layout: {
+				padding: 0,
+			},
+		}
+
+		// Chart 1A
+		const chart1ABCOptions = cloneDeep(options)
+		new Chart(ctx1A, {
+			type: 'line',
+			data: {
+				labels: [
+					'Jan',
+					'Feb',
+					'Mar',
+					'Apr',
+					'May',
+					'Jun',
+					'Jul',
+					'Aug',
+					'Sep',
+					'Oct',
+					'Nov',
+					'Dec',
+				],
+				datasets: [
+					{
+						label: 'Base',
+						data: [
+							5000000.0, 5053846.1, 5107692.2, 5161538.3,
+							5215384.4, 5269230.5, 5323076.6, 5376922.7,
+							5430768.8, 5484614.9, 5538461.0, 5592307.1,
+						],
+						borderColor: colors.base,
+						backgroundColor: colors.base,
+					},
+					{
+						label: 'Target',
+						data: [
+							5000000.0, 5076923.0, 5153846.0, 5230769.0,
+							5307692.0, 5384615.0, 5461538.0, 5538461.0,
+							5615384.0, 5692307.0, 5769230.0, 5846153.0,
+						],
+						borderColor: colors.target,
+						backgroundColor: colors.target,
+					},
+					{
+						label: 'Superior',
+						data: [
+							5000000.0, 5099999.9, 5199999.8, 5299999.7,
+							5399999.6, 5499999.5, 5599999.4, 5699999.3,
+							5799999.2, 5899999.1, 5999999.0, 6099998.9,
+						],
+						borderColor: colors.superior,
+						backgroundColor: colors.superior,
+					},
+					{
+						label: 'Current',
+						data: [
+							5000000.0, 5065384.55, 5123076.8, 5253845.9,
+							5276922.8, 5461538.0, 5576922.5,
+						],
+						borderColor: colors.current,
+						borderWidth: 2,
+						backgroundColor: colors.current,
+						pointRadius: 3,
+					},
+				],
+			},
+			options: chart1ABCOptions,
+		})
+
+		// Chart 1B
+		new Chart(ctx1B, {
+			type: 'line',
+			data: {
+				labels: ['', 'Q1', 'Q2', 'Q3', 'Q4'],
+				datasets: [
+					{
+						label: 'Base',
+						data: [
+							5000000.0, 5161538.3, 5323076.6, 5484614.9,
+							5646153.2,
+						],
+						borderColor: colors.base,
+						backgroundColor: colors.base,
+					},
+					{
+						label: 'Target',
+						data: [
+							5000000.0, 5230769.0, 5461538.0, 5692307.0,
+							5923076.0,
+						],
+						borderColor: colors.target,
+						backgroundColor: colors.target,
+					},
+					{
+						label: 'Superior',
+						data: [
+							5000000.0, 5299999.7, 5599999.4, 5899999.1,
+							6199998.8,
+						],
+						borderColor: colors.superior,
+						backgroundColor: colors.superior,
+					},
+					{
+						label: 'Current',
+						data: [5000000.0, 5253845.9, 5576922.5, ,],
+						borderColor: colors.current,
+						borderWidth: 2,
+						backgroundColor: colors.current,
+						pointRadius: 3,
+					},
+				],
+			},
+			options: chart1ABCOptions,
+		})
+
+		// Chart 1C
+		new Chart(ctx1C, {
+			type: 'line',
+			data: {
+				labels: ['', 'Q1', 'Q2', 'Q3', 'Q4'],
+				datasets: [
+					{
+						label: 'Base',
+						data: [
+							5000000.0, 5161538.3, 5323076.6, 5484614.9,
+							5646153.2,
+						],
+						borderColor: colors.base,
+						backgroundColor: colors.base,
+					},
+					{
+						label: 'Target',
+						data: [
+							5000000.0, 5230769.0, 5461538.0, 5692307.0,
+							5923076.0,
+						],
+						borderColor: colors.target,
+						backgroundColor: colors.target,
+					},
+					{
+						label: 'Superior',
+						data: [
+							5000000.0, 5299999.7, 5599999.4, 5899999.1,
+							6199998.8,
+						],
+						borderColor: colors.superior,
+						backgroundColor: colors.superior,
+					},
+				],
+			},
+			options: chart1ABCOptions,
+		})
+
+		// Chart 1D
+		const chart1DOptions = cloneDeep(options)
+		chart1DOptions.scales = { y: { display: false } }
+		new Chart(ctx1D, {
+			type: 'line',
+			data: {
+				labels: ['', 'Q1', 'Q2', 'Q3', 'Q4'],
+				datasets: [
+					{
+						label: 'Base',
+						data: [
+							5000000.0, 5161538.3, 5323076.6, 5484614.9,
+							5646153.2,
+						],
+						borderColor: colors.base,
+						backgroundColor: colors.base,
+					},
+					{
+						label: 'Target',
+						data: [
+							5000000.0, 5230769.0, 5461538.0, 5692307.0,
+							5923076.0,
+						],
+						borderColor: colors.target,
+						backgroundColor: colors.target,
+					},
+					{
+						label: 'Superior',
+						data: [
+							5000000.0, 5299999.7, 5599999.4, 5899999.1,
+							6199998.8,
+						],
+						borderColor: colors.superior,
+						backgroundColor: colors.superior,
+					},
+					{
+						label: 'Current',
+						data: [5000000.0, 5253845.9, 5576922.5, ,],
+						borderColor: colors.current,
+						borderWidth: 2,
+						backgroundColor: colors.current,
+						pointRadius: 3,
+					},
+				],
+			},
+			options: chart1DOptions,
+		})
+
+		// Chart 2
+		const chart2Options = cloneDeep(options)
+		chart2Options.plugins.legend.position = 'right'
+		new Chart(ctx2, {
+			type: 'pie',
+			data: {
+				labels: ['Company', 'Sales Division', 'Chicago Office'],
+				datasets: [
+					{
+						data: [50, 30, 20],
+						borderColor: 'transparent',
+						backgroundColor: [
+							colors.company,
+							colors.division,
+							colors.location,
+						],
+					},
+				],
+			},
+			options: chart2Options,
+		})
+
+		// Chart 3A
+		const chart3Options = cloneDeep(options)
+		chart3Options.plugins.legend.display = false
+		new Chart(ctx3A, {
+			type: 'bar',
+			data: {
+				labels: ['Base', 'Target', 'Projected', 'Superior'],
+				datasets: [
+					{
+						label: 'Base',
+						backgroundColor: [
+							colors.base,
+							colors.target,
+							'transparent',
+							colors.superior,
+						],
+						borderWidth: [0, 0, 2, 0],
+						borderColor: ['#fff', '#fff', colors.current, '#fff'],
+						data: [25000, 37500, 46250, 50000],
+					},
+				],
+			},
+			options: chart3Options,
+		})
+
+		// Chart 3B
+		chart3Options.plugins.legend.display = false
+		new Chart(ctx3B, {
+			type: 'bar',
+			data: {
+				labels: ['Base', 'Target', 'Superior'],
+				datasets: [
+					{
+						label: 'Base',
+						backgroundColor: [
+							colors.base,
+							colors.target,
+							colors.superior,
+						],
+						borderWidth: [0, 0, 2, 0],
+						borderColor: ['#fff', '#fff', '#fff'],
+						data: [25000, 37500, 50000],
+					},
+				],
+			},
+			options: chart3Options,
+		})
+
+		// Chart 4
+		const chart4Options = cloneDeep(options)
+		chart4Options.plugins.legend.display = false
+		chart4Options.scales = {
+			x: {
+				position: 'bottom',
+			},
+			x2: {
+				position: 'top',
+				grid: {
+					display: true,
+					drawBorder: false,
+					drawOnChartArea: true,
+					drawTicks: true,
+					color: (ctx) => {
+						if (ctx.tick.label != '') return colors.target
+					},
+				},
+				labels: ['', '', '', 'Grant Date', '', '', 'Today'],
+			},
+		}
+		chart4Options.plugins.tooltip = {
+			...chart4Options.plugins.tooltip,
+			callbacks: {
+				title: (ctx) => {
+					const index = ctx[0].dataIndex
+					if (index == 3) return 'Grant Date'
+					if (index < 3) return null
+					if (index > 3)
+						return `${Math.min((index - 3) * 25, 100)}% Vested`
+					return ctx[0].label
+				},
+			},
+		}
+		// Chart 4A
+		new Chart(ctx4A, {
+			type: 'line',
+			data: {
+				labels: [2016, 2017, 2018, 2019, 2020, 2021, 2022],
+				datasets: [
+					{
+						label: 'Share Price',
+						data: [9.1, 14.3, 17.6, 19.29, 24.16, 30.2, 33.45],
+						borderColor: colors.current,
+						borderWidth: 2,
+						backgroundColor: colors.current,
+						pointRadius: 3,
+						segment: {
+							borderColor: (ctx) => {
+								if (ctx.p0.parsed.x < 3) {
+									return 'rgba(0, 0, 0, 0.3)'
+								}
+							},
+							borderDash: (ctx) => {
+								if (ctx.p0.parsed.x < 3) return [6, 6]
+							},
+						},
+					},
+				],
+			},
+			options: chart4Options,
+		})
+
+		// Chart 4B
+		const chart4BOptions = cloneDeep(chart4Options)
+		// prettier-ignore
+		chart4BOptions.scales.x2.labels = ['', '', '', 'Grant Date', '', '', '', 'Vesting Date', 'Today'],
+		new Chart(ctx4B, {
+			type: 'line',
+			data: {
+				labels: [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024],
+				datasets: [
+					{
+						label: 'Share Price',
+						data: [
+							9.1, 14.3, 17.6, 19.29, 24.16, 30.2, 33.45, 35.1,
+							38.7,
+						],
+						borderColor: colors.current,
+						borderWidth: 2,
+						backgroundColor: colors.current,
+						pointRadius: 3,
+						segment: {
+							borderColor: (ctx) => {
+								if (ctx.p0.parsed.x < 3) {
+									return 'rgba(0, 0, 0, 0.3)'
+								}
+							},
+							borderDash: (ctx) => {
+								if (ctx.p0.parsed.x < 3) return [6, 6]
+							},
+						},
+					},
+				],
+			},
+			options: chart4BOptions,
+		})
+
+		//
+		//
+
+		// Clone object without any references.
+		// - - -
+		// Optional 'keys' lets you select which fields to clone.
+		// Can be array ['name', 'username'] or string 'name username'
+		function cloneDeep(obj, keys) {
+			if (keys) {
+				keys = typeof keys == 'string' ? keys.split(' ') : keys
+				if (Array.isArray(keys)) {
+					const freshObj = {}
+					keys.forEach((key) => (freshObj[key] = obj[key]))
+					obj = freshObj
+				}
+			}
+			return _parseOneLevel(obj)
+
+			//
+			//
+
+			function _parseOneLevel(val) {
+				const isArray = Array.isArray(val)
+				const isObject = val && typeof val == 'object'
+				if (isArray) {
+					// Array
+					return val.map((v) => _parseOneLevel(v))
+				} else if (isObject) {
+					// Object
+					return Object.fromEntries(
+						Object.entries(val).map((entry) => {
+							if (typeof entry[1] == 'object') {
+								const destructuredValue = Array.isArray(
+									entry[1]
+								)
+									? [...entry[1]]
+									: { ...entry[1] }
+								return [
+									entry[0],
+									_parseOneLevel(destructuredValue),
+								]
+							} else {
+								return [entry[0], entry[1]]
+							}
+						})
+					)
+				} else {
+					return val
+				}
+			}
+		}
+	</script>
+</html>
